@@ -90,7 +90,6 @@ export const authCheckState = () => {
         dispatch(logout());
       } else {
         const userId = localStorage.getItem("userId");
-        console.log(userId);
         dispatch(authSuccess(token, userId));
         dispatch(
           checkAuthTimeout(
