@@ -1,12 +1,15 @@
-import { put, delay } from "redux-saga/effects";
+import { put, delay, call } from "redux-saga/effects";
 import axios from "axios";
 
 import * as actions from "../actions/index";
 
 export function* logoutSaga(action) {
-  yield localStorage.removeItem("token");
-  yield localStorage.removeItem("expirationDate");
-  yield localStorage.removeItem("userId");
+  yield call([localStorage, "removeItem"], "token");
+  yield call([localStorage, "removeItem"], "expirationDate");
+  yield call([localStorage, "removeItem"], "userId");
+  // yield localStorage.removeItem("token");
+  // yield localStorage.removeItem("expirationDate");
+  // yield localStorage.removeItem("userId");
   yield put(actions.logoutSucceed());
 }
 
@@ -16,7 +19,7 @@ export function* checkAuthTimeoutSaga(action) {
 }
 
 export function* authUserSaga(action) {
-  yield put(action.authStart());
+  yield put(actions.authStart());
   const authData = {
     email: action.email,
     password: action.password,
